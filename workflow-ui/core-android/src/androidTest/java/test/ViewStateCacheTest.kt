@@ -11,9 +11,9 @@ import com.squareup.workflow1.ui.Named
 import com.squareup.workflow1.ui.ViewEnvironment
 import com.squareup.workflow1.ui.androidx.WorkflowLifecycleOwner
 import com.squareup.workflow1.ui.WorkflowUiExperimentalApi
-import com.squareup.workflow1.ui.backstack.KeyedStateRegistryOwner
-import com.squareup.workflow1.ui.backstack.ViewStateCache
-import com.squareup.workflow1.ui.backstack.ViewStateFrame
+import com.squareup.workflow1.ui.container.KeyedStateRegistryOwner
+import com.squareup.workflow1.ui.container.ViewStateCache
+import com.squareup.workflow1.ui.container.ViewStateFrame
 import com.squareup.workflow1.ui.backstack.test.fixtures.ViewStateTestView
 import com.squareup.workflow1.ui.bindShowRendering
 import org.junit.Assert.fail
