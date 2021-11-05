@@ -8,12 +8,16 @@ import androidx.test.espresso.IdlingResource
 import com.squareup.sample.authworkflow.AuthViewFactories
 import com.squareup.sample.container.SampleContainers
 import com.squareup.sample.gameworkflow.TicTacToeViewFactories
+import com.squareup.workflow1.ui.ViewEnvironment
+import com.squareup.workflow1.ui.ViewRegistry
 import com.squareup.workflow1.ui.WorkflowLayout
 import com.squareup.workflow1.ui.WorkflowUiExperimentalApi
-import com.squareup.workflow1.ui.backstack.BackStackContainer
+import com.squareup.workflow1.ui.container.asRoot
+import com.squareup.workflow1.ui.container.plus
 import com.squareup.workflow1.ui.modal.AlertContainer
 import com.squareup.workflow1.ui.plus
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -31,7 +35,7 @@ class TicTacToeActivity : AppCompatActivity() {
     idlingResource = component.idlingResource
 
     setContentView(
-      WorkflowLayout(this).apply { start(model.renderings, viewRegistry) }
+      WorkflowLayout(this).apply { take(model.renderings.map { it.asRoot() + env }) }
     )
 
     lifecycleScope.launch {
@@ -47,7 +51,7 @@ class TicTacToeActivity : AppCompatActivity() {
     val viewRegistry = SampleContainers +
       AuthViewFactories +
       TicTacToeViewFactories +
-      BackStackContainer +
       AlertContainer
+    val env = ViewEnvironment(mapOf(ViewRegistry to viewRegistry))
   }
 }

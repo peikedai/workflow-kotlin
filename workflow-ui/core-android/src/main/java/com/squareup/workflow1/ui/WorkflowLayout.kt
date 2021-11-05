@@ -65,9 +65,7 @@ public class WorkflowLayout(
   @Deprecated(
     "Use take()",
     ReplaceWith(
-      "take(renderings.map { " +
-        "RootScreen(asScreen(it), ViewEnvironment(mapOf(ViewRegistry to registry))) " +
-        "})",
+      "take(renderings.map { asScreen(it).asRoot(registry) })",
       "com.squareup.workflow1.ui.AsScreen.Companion.asScreen",
       "com.squareup.workflow1.ui.ViewEnvironment",
       "com.squareup.workflow1.ui.ViewRegistry",
@@ -83,7 +81,10 @@ public class WorkflowLayout(
     start(renderings, ViewEnvironment(mapOf(ViewRegistry to registry)))
   }
 
-  @Deprecated("Use take()", ReplaceWith("take(renderings)"))
+  @Deprecated(
+    "Use take()",
+    ReplaceWith("take(renderings.map { asScreen(it).asRoot(environment) })")
+  )
   public fun start(
     renderings: Flow<Any>,
     environment: ViewEnvironment = ViewEnvironment()

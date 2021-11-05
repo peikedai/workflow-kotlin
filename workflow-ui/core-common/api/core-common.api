@@ -23,15 +23,6 @@ public final class com/squareup/workflow1/ui/CompatibleKt {
 	public static final fun compatible (Ljava/lang/Object;Ljava/lang/Object;)Z
 }
 
-public abstract interface class com/squareup/workflow1/ui/ModalRendering : com/squareup/workflow1/ui/Compatible {
-	public abstract fun getCompatibilityKey ()Ljava/lang/String;
-	public abstract fun getContent ()Lcom/squareup/workflow1/ui/Screen;
-}
-
-public final class com/squareup/workflow1/ui/ModalRendering$DefaultImpls {
-	public static fun getCompatibilityKey (Lcom/squareup/workflow1/ui/ModalRendering;)Ljava/lang/String;
-}
-
 public final class com/squareup/workflow1/ui/Named : com/squareup/workflow1/ui/Compatible {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/Object;
