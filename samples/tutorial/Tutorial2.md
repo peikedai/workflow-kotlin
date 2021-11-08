@@ -12,7 +12,7 @@ Start from the implementation of `tutorial-1-complete` if you're skipping ahead.
 
 Let's add a second screen and workflow so we have somewhere to land after we log in. Our next screen will be a list of "todo" items, as todo apps are the best apps.
 
-Create a new screen/`LayoutRunner` pair called `TodoList`:
+Create a new screen/`LayoutRunner` pair called `TodoListScreen`/`TodoListLayoutRunner`:
 
 Add the provided `TodoListViewBinding` from `tutorial-views` as a subview to the newly created layout runner:
 
@@ -29,7 +29,8 @@ data class TodoListScreen(
   val onTodoSelected: (Int) -> Unit,
   val onBack: () -> Unit
 )
-
+```
+```kotlin
 class TodoListLayoutRunner(
   /** From `todo_list_view.xml`. */
   private val todoListBinding: TodoListViewBinding
@@ -54,7 +55,7 @@ class TodoListLayoutRunner(
 }
 ```
 
-And then create the corresponding workflow called "TodoList".
+And then create the corresponding workflow called "TodoListWorkflow".
 
 Modify the rendering to return a `TodoListScreen`. Modify `State` data class to contain a placeholder parameter, to make the compiler happy. We can leave everything else as the default for now:
 
@@ -148,13 +149,9 @@ object TodoListWorkflow : StatefulWorkflow<Unit, State, Nothing, TodoListScreen>
 }
 ```
 
-Add a `todoTitles` property to the `TodoScreen`, and fill in `showRendering` to update the `TodoListViewBinding` to change what it shows anytime the screen updates:
+Fill in `showRendering` to update the `TodoListViewBinding` to change what it shows anytime the screen updates:
 
 ```kotlin
-data class TodoListScreen(
-  val todoTitles: List<String>
-)
-
 class TodoListLayoutRunner(
   private val todoListBinding: TodoListViewBinding
 ) : LayoutRunner<TodoListScreen> {
@@ -404,7 +401,7 @@ object RootWorkflow : StatefulWorkflow<Unit, State, Nothing, Any>() {
       // When the state is Todo, defer to the TodoListWorkflow.
       is Todo -> {
         val todoScreen
-        = context.renderChild(TodoListWorkflow, Unit)) {
+        = context.renderChild(TodoListWorkflow, Unit) {
           TODO() // we'll handle output of TodoListWorkflow later
         }
         return todoScreen
